@@ -1,0 +1,196 @@
+
+@startuml
+
+state "V1.0最小可用产品" as V1{
+
+  state "VS H5应用" as VS_H5_V1
+    VS_H5_V1: 用户帐户
+    VS_H5_V1: 消息通信与社交
+    VS_H5_V1: 内容与服务、亲情通信、监控监护
+    VS_H5_V1: 服务和产品浏览、订购
+    VS_H5_V1: 服务实施
+    VS_H5_V1: ----
+    VS_H5_V1: 用户管理
+    VS_H5_V1: 订单管理
+    VS_H5_V1: 内容和服务管理
+    VS_H5_V1: 终端及用户行为管理
+
+
+  state "Android盒子电视终端" as TV_V1{
+
+    state "Android盒子" as ANDROID_STB_V1 #silver{
+      state "运营商盒子" as ANDROID_STB_CARRIER_V1 #lightcyan
+        ANDROID_STB_CARRIER_V1: 硬件、外观、结构
+        ANDROID_STB_CARRIER_V1: 包装、配件
+        ANDROID_STB_CARRIER_V1: OS和系统软件
+
+      state "OTT盒子" as ANDROID_STB_OTT_V1 #Gold
+        ANDROID_STB_OTT_V1: 硬件、外观、结构
+        ANDROID_STB_OTT_V1: 包装、配件
+        ANDROID_STB_OTT_V1: OS和系统软件
+    }
+
+    state "运营商基础业务" as CARRIER_BASE_V1 #skyblue{
+
+      state "Launcher:界面和入口" as LAUNCHER  #lightcyan
+        LAUNCHER: 确定TV端的基本UX设计原则
+        LAUNCHER: 遵循设计原则实现TV端应用入口
+        LAUNCHER: 基本设置（联网、个人信息）
+
+      state "VoD:点播影院" as TV_VOD #lightcyan
+        TV_VOD: TV端视频点播
+        TV_VOD: 手机端VR播放
+    }
+    
+    state "VS:视频服务" as TV_VS_V1
+      TV_VS_V1: 原生应用
+      TV_VS_V1: VS H5应用容器
+
+    state "用户与系统设置" as TV_SETTING_V1
+      TV_SETTING_V1: 原生应用
+      TV_SETTING_V1: VS H5应用容器
+  }
+
+  state "移动终端" as MOBILE_V1 #pink{
+
+    state "原生应用" as MOBILE_NATIVE_V1{
+      state "智能手机应用" as PHONE_NATIVE_V1
+        PHONE_NATIVE_V1: Android移动APK
+        PHONE_NATIVE_V1: iOS移动APP
+        PHONE_NATIVE_V1: VS H5应用容器
+
+      state "智能平板应用" as PAD_NATIVE_V1
+        PAD_NATIVE_V1: APad APK
+        PAD_NATIVE_V1: iPad APP
+        PAD_NATIVE_V1: VS H5应用容器
+    }
+
+    state "微信生态应用" as WECHAT_V1{
+
+      state "公众号" as WECHAT_PUB_V1
+        WECHAT_PUB_V1: 原生应用下载入口
+        WECHAT_PUB_V1: VS H5应用入口
+        WECHAT_PUB_V1: 小程序入口
+
+      state "小程序" as WECHAT_MINIAPP_V1
+        WECHAT_MINIAPP_V1: 服务和产品浏览
+        WECHAT_MINIAPP_V1: 服务和产品订购
+        WECHAT_MINIAPP_V1: 服务与功能
+        WECHAT_MINIAPP_V1: 用户与社交
+
+      WECHAT_PUB_V1 -> WECHAT_MINIAPP_V1
+    }
+
+  }
+
+  state "PC终端" as PC_V1 #pink{
+
+    state "WEB门户与服务系统" as PC_PORTAL_NATIVE_V1
+      PC_PORTAL_NATIVE_V1: Web Html5浏览器
+  }
+
+
+  TV_VS_V1 -up-> VS_H5_V1 : 大屏1920x1080
+  TV_SETTING_V1 -up-> VS_H5_V1 : 大屏1920x1080
+  PHONE_NATIVE_V1 -up-> VS_H5_V1 : 小屏
+  PAD_NATIVE_V1 -up-> VS_H5_V1 : 大屏
+  WECHAT_PUB_V1 -up-> VS_H5_V1 : 小屏
+  PC_PORTAL_NATIVE_V1 -up-> VS_H5_V1 : 大屏
+}
+
+state "V2.0" as V2{
+
+  state "VS H5应用" as VS_H5_V2
+    VS_H5_V2: 前台功能完善
+    VS_H5_V2: ----
+    VS_H5_V2: 后台功能完善
+
+
+  state "Android盒子电视终端" as TV_V2 {
+    
+    state "Android盒子" as ANDROID_STB_V2 #silver{
+      state "运营商盒子" as ANDROID_STB_CARRIER_V2 #lightcyan
+
+      state "OTT盒子" as ANDROID_STB_OTT_V2 #Gold
+    }
+
+
+    state "运营商基础业务" as CARRIER_BASE_V2 #skyblue{
+
+      state "广电运营商基础视频业务" as TV_HFC #lightcyan
+        TV_HFC: 自主定制开发DVB视频业务
+        TV_HFC: 自主定制开发VoD视频业务
+      
+      state "应用商店" as TV_APPSTORE #lightcyan
+        TV_APPSTORE: 自主定制开发AppStore应用市场
+    }
+
+    state "VS:视频服务" as TV_VS_V2
+  }
+
+  state "PC终端" as PC_V2 #pink{
+    state "Native门户与服务系统" as PC_PORTAL_NATIVE_V2
+      PC_PORTAL_NATIVE_V2: Windows Portal Executable
+      PC_PORTAL_NATIVE_V2: Mac OS X Portal App
+      PC_PORTAL_NATIVE_V2: WEB VS_H5 应用容器
+  }
+
+  state "实体门店及系统" as STORE_MIS  #silver
+
+
+  state "移动终端" as MOBILE_V2 #pink{
+    state "原生应用" as MOBILE_NATIVE_V2{
+      state "智能手机应用" as PHONE_NATIVE_V2
+        PHONE_NATIVE_V2: Android移动APK
+        PHONE_NATIVE_V2: iOS移动APP
+        PHONE_NATIVE_V2: VS H5应用容器
+
+      state "智能平板应用" as PAD_NATIVE_V2
+        PAD_NATIVE_V2: APad APK
+        PAD_NATIVE_V2: iPad APP
+        PAD_NATIVE_V2: VS H5应用容器
+    }
+
+    state "微信生态应用" as WECHAT_V2{
+
+      state "公众号" as WECHAT_PUB_V2
+        WECHAT_PUB_V2: 原生应用下载入口
+        WECHAT_PUB_V2: VS H5应用入口
+        WECHAT_PUB_V2: 小程序入口
+
+      state "小程序" as WECHAT_MINIAPP_V2
+        WECHAT_MINIAPP_V2: 服务和产品浏览
+        WECHAT_MINIAPP_V2: 服务和产品订购
+        WECHAT_MINIAPP_V2: 服务与功能
+        WECHAT_MINIAPP_V2: 用户与社交
+
+      WECHAT_PUB_V2 -> WECHAT_MINIAPP_V2
+    }
+  }
+
+  TV_VS_V2 --> VS_H5_V2 : 大屏1920x1080
+
+  WECHAT_PUB_V2 --> VS_H5_V2 : 小屏
+  PC_PORTAL_NATIVE_V2 --> VS_H5_V2 : 大屏
+  PHONE_NATIVE_V2 --> VS_H5_V2 : 小屏
+  PAD_NATIVE_V2 --> VS_H5_V2 : 大屏
+
+  STORE_MIS --> VS_H5_V2
+}
+
+[*] --> VS_H5_V1
+
+MOBILE_V1 --> MOBILE_V2
+ANDROID_STB_CARRIER_V1 --> ANDROID_STB_CARRIER_V2
+ANDROID_STB_OTT_V1 --> ANDROID_STB_OTT_V2
+CARRIER_BASE_V1 --> CARRIER_BASE_V2
+TV_VS_V1 --> TV_VS_V2
+
+
+PC_PORTAL_NATIVE_V1 --> PC_PORTAL_NATIVE_V2
+
+VS_H5_V1 -> VS_H5_V2
+
+VS_H5_V2 --> [*] : 长期演进\n个性化、社交化、定制化\n性能和体验优化
+
+@enduml

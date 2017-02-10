@@ -1,0 +1,183 @@
+
+@startuml
+
+!define color1 #DeepSkyBlue
+!define color2 #LightCyan
+!define color3 #LightSkyBlue
+!define color4 #Pink
+
+state "教育培训、监控监管、实时视频\n战略发展方向" as DIRECT #Bisque{
+  state "个人和家庭" as 2C
+    2C: 终端（手机、Pad、盒子、PC）
+    2C: 周边配件（摄像头、耳麦、其它）
+    2C: 教育、娱乐、健康、知识（内容和服务）
+    2C: 视频服务
+    2C: 个性化定制和打包的内容和服务
+
+  state "政府和企事业机构" as 2B
+    2B: 系统解决方案
+    2B: 终端及周边配件
+    2B: 视频会议和培训工具
+    2B: 监控和监管工具
+    2B: 培训内容和知识服务
+
+  2C -> 2B : 针对运营商包装成解决方案
+}
+
+[*] --> 2C : 2C\nTo Customer\n服务和内容运营
+[*] --> 2B : 2B\nTo Biz/Gov\n商务和市场营销
+
+
+state "V1.0 构建最小可销售产品" as V1{
+
+  state "广电视频信息终端与服务\n侧重于终端、平台和技术支撑" as Carrier2C_V1 color2
+    Carrier2C_V1: 产品：终端、内容和服务
+    Carrier2C_V1: 客户：运营商的家庭用户
+    Carrier2C_V1: 流量：广电运营商
+    Carrier2C_V1: 运营：产品和技术、市场和商务、品牌
+
+  state "网络视频信息终端与服务\n侧重于内容、服务与渠道运营" as Self2C_V1 color4
+    Self2C_V1: 产品：终端、内容和服务
+    Self2C_V1: 客户：互联网大众消费者
+    Self2C_V1: 流量：线上渠道以微营销网络营销为主\n      线下渠道以市场商务为主\n      地推、代理、服务提供者、微营销、网络营销
+    Self2C_V1: 运营：技术和产品、品牌和市场
+
+  state "非运营商系统和服务" as 2B_V1 #Gold
+    2B_V1: 产品：终端和周边、内容和服务、软件系统集成服务
+    2B_V1: 客户：政府、企业和事业单位
+    2B_V1: 流量：地推、代理、商务、微营销、网络营销
+    2B_V1: 运营：产品和技术、品牌和商务
+
+  state "运营商系统和服务" as 2Carrier_V1 color3
+    2Carrier_V1: 产品：终端和周边、内容和服务、软件系统集成服务
+    2Carrier_V1: 客户：广电运营商
+    2Carrier_V1: 流量：代理、商务、微营销、网络营销
+    2Carrier_V1: 运营：产品和技术、品牌和商务
+}
+
+2C --> Carrier2C_V1 : 运营商渠道\n技术和服务运营
+2C --> Self2C_V1 : 其它渠道\n内容和服务运营
+2B --> 2B_V1 : 非运营商客户
+2B --> 2Carrier_V1 : 运营商客户
+
+
+state "V2.0 完善产品、吸引线上流量、增加线下实体店(加盟、直营)" as V2{
+
+  state "家庭视频智能终端和信息服务" as Carrier2C_V2 color2
+    Carrier2C_V2: 产品：打包、丰富、优化
+    Carrier2C_V2: 客户：家庭和个人用户
+    Carrier2C_V2: 流量：省外运营商、微分销、实体店
+    Carrier2C_V2: 运营：打包优化运营商优质业务（直播、点播、时移）\n　　　打包第三方优质内容和服务（视频、游戏）\n　　　打包水电煤气宽带物业\n　　　打包家政、餐饮、教育、医疗、娱乐等行业的内容和服务
+
+  state "家庭视频终端和信息服务" as Self2C_V2 color4
+    Self2C_V2: 产品：终端、内容和服务
+    Self2C_V2: 客户：消费者
+    Self2C_V2: 流量：线下实体店（直营、加盟）、线上代理（微分销）
+    Self2C_V2: 运营：产品、内容、市场和品牌
+
+  state "线下实体" as OFFLINE color4{
+    state "实体门店" as STORE #Silver
+      STORE: 自营门店
+      STORE: 加盟门店
+
+    state "实体商品" as COMMODITY #Silver
+      COMMODITY: Food and Beverage
+      COMMODITY: 3C
+      COMMODITY: Others...
+  }
+
+  state "非运营商系统和服务" as 2B_V2 #Gold
+    2B_V2: 产品：针对客户需求优化产品
+    2B_V2: 客户：政府、企业和事业单位
+    2B_V2: 流量：市场商务、网络营销、微营销分销
+    2B_V2: 运营：产品、内容、商务、市场和品牌
+
+
+  state "运营商系统和服务" as 2Carrier_V2 color3
+    2Carrier_V2: 产品：针对运营商需求优化产品
+    2Carrier_V2: 客户：运营商
+    2Carrier_V2: 流量：商务和市场
+    2Carrier_V2: 运营：产品、内容、商务、市场和品牌
+}
+
+Carrier2C_V1 --> Carrier2C_V2
+Self2C_V1 --> Self2C_V2
+Self2C_V1 --> OFFLINE
+
+2Carrier_V1 --> 2Carrier_V2
+2B_V1 --> 2B_V2
+
+
+state "V3.0 完善产品、丰富渠道、建设品牌" as V3{
+  
+  state "家庭视频智能终端和服务" as Carrier2C_V3 color2
+    Carrier2C_V3: 产品：对客户进行垂直细分
+    Carrier2C_V3: 客户：全部运营商、家庭
+    Carrier2C_V3: 流量：建立运营商、网络营销、微分销\n　　　和地堆O2O等多个渠道运营体系
+    Carrier2C_V3: 运营：面向不同渠道提出市场运营推广包装方案\n　　　进行以内容和服务为主的，\n　　　包括产品、技术、市场的多维度、跨行业运营
+
+  state "视频家庭知识和信息服务" as Self2C_V3 color4
+    Self2C_V3: 产品：
+    Self2C_V3: 客户：
+    Self2C_V3: 流量：
+    Self2C_V3: 运营：
+
+  state "非运营商系统和服务" as 2B_V3 #Gold
+    2B_V3: 产品：针对客户需求优化产品
+    2B_V3: 客户：政府、企业和事业单位
+    2B_V3: 流量：市场商务、网络营销、微营销分销
+    2B_V3: 运营：产品、内容、商务、市场和品牌
+
+  state "运营商系统和服务" as 2Carrier_V3 color3
+    2Carrier_V3: 产品：
+    2Carrier_V3: 客户：
+    2Carrier_V3: 流量：
+    2Carrier_V3: 运营：
+
+  Self2C_V3 -> Carrier2C_V3: 提供内容和服务
+}
+
+Carrier2C_V2 --> Carrier2C_V3
+Self2C_V2 --> Self2C_V3
+OFFLINE --> Self2C_V3
+OFFLINE --> Carrier2C_V3: 合作
+
+2Carrier_V2 --> 2Carrier_V3
+2B_V2 --> 2B_V3
+
+
+state "终极目标" as TARGET  #Bisque {
+  state "虚拟运营商" as TARGET_VirtualCarrier color2
+    TARGET_VirtualCarrier: 对产品和技术做持续改进
+    TARGET_VirtualCarrier: 持续完善渠道
+    TARGET_VirtualCarrier: 提供个性化、细分的视频和内容服务
+    TARGET_VirtualCarrier: 长期经营市场、商务和品牌
+    
+  state "零售商和互联网服务商" as TARGET_2C color4
+    TARGET_2C: 丰富商品各类，经营实体的虚拟店铺
+    TARGET_2C: 直接向消费者提供需要的服务和商品
+    TARGET_2C: 对产品和技术做持续改进
+    TARGET_2C: 持续完善自建的O2O渠道，增加加盟和代理
+    TARGET_2C: 持续完善内容和服务运营
+    TARGET_2C: 长期经营市场、商务和品牌
+
+  state "政企信息系统和服务提供商" as TARGET_2B #Gold
+    TARGET_2B: 对产品和技术做持续改进
+    TARGET_2B: 持续完善渠道
+    TARGET_2B: 持续完善产品和服务运营
+    TARGET_2B: 长期经营市场、商务和品牌
+
+  TARGET_2C -> TARGET_VirtualCarrier: 通过合作也可以提供\n虚拟运营商业务
+}
+
+Carrier2C_V3 --> TARGET_VirtualCarrier : 通过内容和服务合作\n从技术服务提供商演进为\n虚拟运营商
+Self2C_V3 --> TARGET_2C
+
+2B_V3 --> TARGET_2B
+2Carrier_V3 --> TARGET_2B
+
+TARGET_VirtualCarrier --> [*]
+TARGET_2C --> [*]
+TARGET_2B --> [*]
+
+@enduml
