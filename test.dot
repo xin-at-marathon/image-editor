@@ -1,0 +1,53 @@
+
+digraph UI {
+
+  graph [size="10,10"]
+  edge [fontname="WenQuanYi Zen Hei"];
+  node [fontname="WenQuanYi Zen Hei"];
+
+
+  VS首页 [URL="v1.0/SY.jpg|pd-v1-SY"]
+  拨号 [URL="v1.0/search.jpg|pd-v1-search"]
+  添加 [URL="v1.0/search.jpg|pd-v1-search"]
+  联系人详情 [URL="v1.0/XQ.jpg|pd-v1-SQ"]
+  呼叫界面 [URL="v1.0/hujiao.jpg|pd-v1-hujiao"]
+  删除联系人 [URL="v1.0/delete.jpg|pd-v1-delete"]
+  删除反馈 [URL="v1.0/delete_success.jpg|pd-v1-delete_success"]
+  NFC绑定提示 [URL="v1.0/BD.jpg|pd-v1-BD"]
+  绑定反馈 [URL="v1.0/BDSuccess.jpg|pd-v1-BDSuccess"]
+  呼入界面 [URL="v1.0/BJ.jpg|pd-v1-Incall"]
+  通话界面 [URL="v1.0/Incall.jpg|pd-v1-BJ"]
+
+subgraph cluster0 {
+  color=red;
+  VS首页 -> 拨号
+  VS首页 -> 添加
+  添加 -> 联系人详情
+  VS首页 -> 联系人详情;
+  label = "首页模块";
+}
+
+
+subgraph cluster1 {
+  color=blue;
+  联系人详情 -> 删除联系人
+  删除联系人 -> 删除反馈
+  联系人详情 -> NFC绑定提示
+  NFC绑定提示 -> 绑定反馈
+  label = "联系人详情模块";
+}
+
+subgraph cluster2 {
+  color=red;
+   呼入界面 -> 通话界面 [label="被叫"]
+  呼叫界面 -> 通话界面
+
+  label = "通话模块";
+}
+  
+  拨号 -> 呼叫界面 [label="主叫"]
+  联系人详情 -> 呼叫界面 [label="主叫"]
+
+}
+
+
