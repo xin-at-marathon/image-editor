@@ -1,0 +1,27 @@
+@startuml
+
+[Client]
+
+[Domain Name]
+
+[Elastic Load Balancer]
+
+package "Application Servers" {
+	[App Server1]
+	[App Server2]
+}
+
+database "AWS DynamoDB" {
+	[Sessions]
+}
+
+
+[Client] --> [Domain Name]
+[Domain Name] --> [Elastic Load Balancer]
+[Elastic Load Balancer] --> [App Server1]
+[Elastic Load Balancer] --> [App Server2]
+
+[App Server1] --> [Sessions]
+[App Server2] --> [Sessions]
+
+@enduml

@@ -1,0 +1,72 @@
+@startuml
+
+left to right direction
+skinparam packageStyle rectangle 
+
+actor Lender
+actor Borrower
+actor "E-Wallet User" as EUSer #Grey
+
+rectangle "P2P Loan Platform\nJackfruit" {
+	Lender -- (invest)
+	Lender -- (get money back)
+	Borrower -- (borrow)
+	Borrower -- (repay)
+	Lender -- (signin\nsignup)
+	Borrower -- (signin\nsignup)
+
+	(Jackfruit Backend Process) as JP
+	(signin\nsignup) ..> JP
+	(invest) ..> JP
+	(get money back) ..> JP
+	(borrow) ..> JP
+	(repay) ..> JP
+
+	actor "Popcorn OpsTeam" as POT
+	(Popcorn Manual process) - POT
+	
+	JP .|> (Popcorn Manual process) : includes
+}
+
+rectangle "Payment Platform\nE-Wallet" {
+	cloud "Current API Only\nFuture UI" as EW #LightGrey {
+		(open account)
+		(transaction)
+		(withdraw)
+		(query)
+	}
+
+	(E-Wallet Backend Proecess) as EP
+	(open account) ..> EP
+	(transaction) ..> EP
+	(withdraw) ..> EP
+	(query) ..> EP
+	EP .|> (E-Wallet Manual Process) : includes
+
+	actor "E-Wallet OpsTeam" as EOT
+	(E-Wallet Manual Process) - EOT
+}
+
+rectangle Partners #Aqua {
+	actor BPOI  << External Systems >>
+	actor "Other Partners"  << External Systems >>
+}
+
+rectangle Banks #Khaki {
+	actor DragonPay << External Systems >>
+	actor "Other Banks" << External Systems >>
+}
+
+JP ..> (open account)
+JP ..> (transaction)
+JP ..> (withdraw)
+JP ..> (query)
+
+JP - BPOI : salary info\nsalary deduction
+
+EP - DragonPay
+
+EUSer -- EW
+
+
+@enduml

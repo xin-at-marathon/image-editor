@@ -1,0 +1,29 @@
+@startuml
+
+interface Producer
+[TransactionProcessor]
+[PaymentGateway]
+
+TransactionProcessor -> PaymentGateway : transaction request
+TransactionProcessor <- PaymentGateway : transaction result
+
+interface Consumer
+
+package "Transaction Queus" as Queue{
+	[TodoTransactionQ]
+	[DoneTransactionQ]
+}
+
+database "AWS" as AWS{
+	component "Simple Queue Service" as Q
+}
+
+Producer --> TodoTransactionQ
+TransactionProcessor --> TodoTransactionQ
+TransactionProcessor --> DoneTransactionQ
+Consumer --> DoneTransactionQ
+
+TodoTransactionQ .. Q
+DoneTransactionQ .. Q
+
+@enduml

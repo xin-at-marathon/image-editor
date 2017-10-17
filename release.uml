@@ -1,0 +1,65 @@
+@startuml
+
+actor ProductTeam
+actor DevTeam
+entity DevServer
+
+entity StagingServer #green
+actor QATeam
+
+box "Public Service" #LightBlue
+	actor ITOpsTeam #red
+	entity ProdServer #red
+	actor BizOpsTeam #red
+	actor Clients #red
+end box
+
+ProductTeam -> DevTeam : PRD
+hnote over DevTeam : coding\nimplementation
+
+DevTeam -> DevServer : deploy & maintenance
+activate DevServer
+DevTeam --> DevServer : patching
+QATeam -> DevServer : test
+ProductTeam -> DevServer : verify
+DevTeam -> DevServer : deploy & maintenance
+deactivate DevServer
+
+hnote over QATeam : publish\nstaging version
+
+QATeam -> DevTeam : staging deploy version
+
+DevTeam -> StagingServer : deploy
+activate StagingServer
+DevTeam --> StagingServer : hotpatch deploy
+QATeam -> StagingServer : test
+ProductTeam -> StagingServer : verify
+BizOpsTeam --> StagingServer : use
+Clients --> StagingServer : use
+DevTeam -> StagingServer : maintenance
+deactivate StagingServer
+
+hnote over QATeam : publish\nproduction version
+QATeam -> ITOpsTeam : production deploy version
+ITOpsTeam -> DevTeam : request production deploy resource
+DevTeam -> ITOpsTeam : production deploy resource
+
+ITOpsTeam -> ProdServer : deploy
+activate ProdServer
+
+BizOpsTeam -> ProdServer : use
+Clients -> ProdServer : use
+
+hnote over QATeam : publish\nhotpatch version
+QATeam --> ITOpsTeam : hotpatch deploy version
+ITOpsTeam -> DevTeam : request production deploy resource
+DevTeam -> ITOpsTeam : production deploy resource
+ITOpsTeam --> ProdServer : hotpatch deploy
+
+BizOpsTeam -> ProdServer : use
+Clients -> ProdServer : use
+
+ITOpsTeam -> ProdServer : maintenance
+
+deactivate ProdServer
+@enduml

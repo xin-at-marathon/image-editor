@@ -1,0 +1,83 @@
+@startuml
+
+package Nginx <<Node>> #ddd{
+}
+
+
+package "Tomcat7 Java Web Application Container" as Tomcat7 <<Node>> #ddd{
+	class "WEB-INF/web.xml" as webXML
+}
+
+package FrontendApp <<Node>> #lightgrey{
+
+}
+
+class BackendNutzFilter
+class EntrySetup{
+	init()
+	destroy()
+}
+
+package Module <<Folder>> {
+	class EntryModule{
+		scanPackage=true
+	}
+
+	class ModuleClasses #cyan
+}
+
+package Biz <<Folder>>{
+	class BizClasses #cyan
+
+	package "WorkFlow Engine"{
+		class "<img:http://ox18louij.bkt.clouddn.com/icon-logo.png>" as Activiti #White 
+	}
+
+	BizClasses -> Activiti
+
+	interface "Partner APIs" as PAPI
+	interface "E-Wallet APIs" as EAPI
+	BizClasses --> PAPI
+	BizClasses --> EAPI
+}
+
+package Bean <<Folder>>{
+	class BeanClasses #cyan
+}
+
+package "org.nutz.nutz" #ddd{
+	package "Nutz.MVC" as NutzMvc{
+		class NutzFilter
+	}
+
+	package "Nutz.DAO" as NutzDao{
+
+	}
+}
+
+package MySQL <<Database>> #ddd{
+	class "p2plp" as DB #cyan
+}
+
+webXML --> BackendNutzFilter : web.xml\n<filter/>
+BackendNutzFilter ..> EntryModule : web.xml\n<init-param/>
+BackendNutzFilter --|> NutzFilter : extends
+EntryModule ..> EntrySetup : @SetupBy
+
+FrontendApp --> Nginx : HTTP
+Nginx --> Tomcat7 : HTTP API
+Tomcat7 --> BackendNutzFilter : HTTP API
+BackendNutzFilter --> ModuleClasses : HTTP APIs
+ModuleClasses --> BeanClasses
+BizClasses --> BeanClasses
+
+EntrySetup --> BizClasses : init
+ModuleClasses --> BizClasses
+
+NutzDao --> DB
+BeanClasses ... DB : syncronized by \nEntrySetup\ncreateTablesInPackage
+
+EntrySetup --> NutzDao : init\ncreateTablesInPackage\nbean
+BizClasses --> NutzDao : db access
+
+@enduml

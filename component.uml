@@ -1,0 +1,104 @@
+@startuml
+
+interface "E-Wallet User" as EUSER
+
+
+interface "Investor" as INVESTOR
+interface "Borrower" as BORROWER
+
+cloud "P2P Loan Platform" {
+
+	interface "P2P Loan Operation Team" as POPCORN_OPS
+
+	component [P2P Loan Web Frontend] as CASHALO << Cashalo >>
+	component [Operation Frontend] as POPCORN << Popcorn >>
+
+	folder "P2P Loan Service" as PB {
+		component [P2P Loan Backend] as JACKFRUIT << Jackfruit >>
+		component [P2P Loan Ops Backend] as LOLLIPOP << Lollipop >>
+
+		database "Jackfruit DB" as JACKFRUIT_DB #EEE
+		component "Partner Gateway" as PARTNER_GATEWAY
+
+		JACKFRUIT ..> PARTNER_GATEWAY
+		JACKFRUIT --> JACKFRUIT_DB
+		LOLLIPOP --> JACKFRUIT_DB
+	}
+
+	folder "HR Partner Systems" #CCC {
+		component BPOI #EEE
+		component "Other Partners……" as OP #EEE
+	}
+
+	database "Data Center" as DATA_CENTER {
+		component "ETL:\nExtract Transform Load" as ETL #EEE
+
+		folder "Tables" as Database {
+
+		}
+
+		ETL --> Database
+	}
+
+	JACKFRUIT_DB --> ETL
+
+	PARTNER_GATEWAY ..> BPOI
+	PARTNER_GATEWAY ..> OP
+
+	CASHALO --> JACKFRUIT
+	POPCORN --> LOLLIPOP
+
+	POPCORN_OPS --> POPCORN
+}
+
+
+INVESTOR --> CASHALO
+BORROWER --> CASHALO
+
+
+cloud "Payment Service" << Coconut >> {
+
+	component "Message Queue" as Q #EEE
+	component "Payment Gateway" as PAYMENT_GATEWAY
+
+	folder "External Payment Systems" as PAYMENT #CCC {
+		component "Dragon Pay" as DRAGONPAY #EEE
+		component "Other Banks……" as BANKS #EEE
+	}
+
+	Q ..> PAYMENT_GATEWAY
+	PAYMENT_GATEWAY ..> DRAGONPAY
+	PAYMENT_GATEWAY ..> BANKS
+}
+
+
+cloud "E-Wallet Platform" {
+
+	interface "E-Wallet Operation Team" as EW_OPS
+
+	component "E-Wallet Clients Frontend" as EW_FRONTEND
+
+	component [E-Wallet Operation Frontend] as EW_OPS_FRONTEND
+
+	folder "E-Wallet Service" as EB {
+		component "E-Wallet Backend" as GUAVA << Guava >>
+		component "E-Wallet Ops Backend" as GUAVA_OPS
+
+		database "Guava DB" as GUAVA_DB #EEE
+
+		GUAVA --> GUAVA_DB
+		GUAVA_OPS --> GUAVA_DB
+	}
+
+	EW_FRONTEND --> GUAVA
+	EW_OPS_FRONTEND --> GUAVA_OPS
+
+	EW_OPS --> EW_OPS_FRONTEND
+}
+
+EUSER --> EW_FRONTEND
+
+JACKFRUIT ..> Q
+GUAVA ..> Q
+
+@enduml

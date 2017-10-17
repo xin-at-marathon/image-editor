@@ -1,0 +1,79 @@
+@startuml
+
+actor :股东会: as BoardOfShareholders
+
+actor :董事会: as Board
+actor :监事会: as BoardOfSupervisors
+
+rectangle "核心管理层" as Executives {
+	actor :董事长: as BoardChairman <<李昕>>
+	actor :总经理CEO: as CEO <<空>>
+	actor :财务官CFO: as CFO <<兼-尚婧>>
+	actor :人力官CHO: as CHO <<兼-彭静>>
+	actor :运营官COO: as COO <<空>>
+	actor :技术官CTO: as CTO <<兼-李昕>>
+
+	BoardChairman --> CEO
+	CEO --> CTO
+	CEO --> CFO
+	CEO --> CHO
+	CEO --> COO
+}
+
+Board --> BoardChairman
+BoardOfShareholders ..> Board
+BoardOfShareholders ..> BoardOfSupervisors
+BoardOfSupervisors ..> Executives : 监督
+
+
+actor :产品研发主管: as ProdDev <<空>>
+
+rectangle "客户服务" as ClientService {
+	actor :客服主管: as ClientsMgr <<空>>
+	actor :客服专员: as ClientsExe <<兼-？？>>
+
+	ClientsMgr --> ClientsExe
+}
+
+actor :门店主管: as ShopsMgr <<空>>
+
+rectangle "市场营销" {
+	actor :市场营销主管: as Mkt <<空>>
+	actor :市场营销策划: as MktPlot <<兼-？？>>
+	actor :渠道和市场拓展: as BDMgr <<兼-马小龙>>
+	actor :市场执行: as MktExe <<兼-？？>>
+
+	Mkt --> MktExe
+	Mkt --> MktPlot
+	Mkt --> BDMgr
+}
+
+
+COO --> Mkt
+COO --> ProdDev
+COO --> ClientsMgr
+COO --> ShopsMgr
+
+rectangle 咸嘉湖店 {
+    actor :店长: as Manager <<全-李柯>>
+    actor :店员: as Staff <<全-？？>>
+    actor :物流: as Delivery <<全/兼聘、外/众包>>
+
+    Manager --> Staff
+    Manager --> Delivery
+}
+
+rectangle XXX店 {
+    actor :店长: as Manager1 <<全-聘>>
+    actor :店员: as Staff1 <<全-聘>>
+    actor :物流: as Delivery1 <<全/兼聘、外/众包>>
+
+    Manager1 --> Staff1
+    Manager1 --> Delivery1
+}
+
+
+ShopsMgr --> Manager
+ShopsMgr --> Manager1
+
+@enduml

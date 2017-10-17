@@ -1,0 +1,11 @@
+@startuml
+
+package "Infrastructure Services" as INFRASTRUCTURE #Aqua {
+	component "AWS Message Queue" as Q
+	component "Open Authorization" as OAUTH
+	component "Generic Session Storage" as SESSION
+	component "Generic Configuration" as CONF
+	component "SMS Sending" as SMS
+}
+
+@enduml
